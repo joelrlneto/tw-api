@@ -38,7 +38,7 @@ namespace WebApplication3.Controllers
         public IActionResult AdicionarVoo(AdicionarVooViewModel dados)
         {
             var voo = _vooService.AdicionarVoo(dados);
-            return CreatedAtAction(nameof(ListarVooPeloId), new { voo.Id }, voo);
+            return CreatedAtAction(nameof(ListarVooPeloId), new { voo!.Id }, voo);
         }
 
         [HttpPut("{id}")]
@@ -69,7 +69,12 @@ namespace WebApplication3.Controllers
         public IActionResult ImprimirFichaDoVoo(int id)
         {
             var conteudo = _vooService.ImprimirFichaDoVoo(id);
-            return File(conteudo, "application/pdf");
+            if(conteudo?.Length > 0)
+            {
+                return File(conteudo, "application/pdf");
+            }
+            else
+                return NoContent();
         }
     }
 }

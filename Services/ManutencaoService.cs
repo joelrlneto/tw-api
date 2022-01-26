@@ -41,14 +41,17 @@ namespace WebApplication3.Services
             _atualizarManutencaoValidator.ValidateAndThrow(dados);
 
             var manutencao = _context.Manutencoes.Find(dados.Id);
+            
+            if(manutencao != null)
+            {
+                manutencao.DataHora = dados.DataHora;
+                manutencao.Tipo = dados.Tipo;
+                manutencao.Observacoes = dados.Observacoes;
+                manutencao.AeronaveId = dados.AeronaveId;
 
-            manutencao.DataHora = dados.DataHora;
-            manutencao.Tipo = dados.Tipo;
-            manutencao.Observacoes = dados.Observacoes;
-            manutencao.AeronaveId = dados.AeronaveId;
-
-            _context.Update(manutencao);
-            _context.SaveChanges();
+                _context.Update(manutencao);
+                _context.SaveChanges();
+            }
         }
 
         public void ExcluirManutencao(int id)
@@ -57,8 +60,11 @@ namespace WebApplication3.Services
 
             var manutencao = _context.Manutencoes.Find(id);
 
-            _context.Remove(manutencao);
-            _context.SaveChanges();
+            if(manutencao != null)
+            {
+                _context.Remove(manutencao);
+                _context.SaveChanges();
+            }
         }
 
         public IEnumerable<ListarManutencaoViewModel> ListarManutencoes()

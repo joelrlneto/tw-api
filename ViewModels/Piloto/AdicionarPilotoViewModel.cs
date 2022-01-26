@@ -2,7 +2,7 @@
 {
     public class AdicionarPilotoViewModel
     {
-        public string Nome { get; set; }
-        public string Matricula { get; set; }
+        public string Nome { get; set; } = String.Empty;
+        public string Matricula { get; set; } = String.Empty;
     }
 }

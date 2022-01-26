@@ -27,7 +27,7 @@ namespace WebApplication3.Validators.Manutencao
                         context.AddFailure("Aeronave inválida.");
                     else
                     {
-                        var emVoo = aeronave.Voos.Any(v => manutencao.DataHora >= v.DataHoraPartida && manutencao.DataHora <= v.DataHoraChegada);
+                        var emVoo = aeronave!.Voos!.Any(v => manutencao.DataHora >= v.DataHoraPartida && manutencao.DataHora <= v.DataHoraChegada);
 
                         if (emVoo)
                             context.AddFailure("Esta aeronave estará em voo no horário selecionado.");

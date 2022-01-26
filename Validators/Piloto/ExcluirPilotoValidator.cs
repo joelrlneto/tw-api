@@ -12,7 +12,7 @@ namespace WebApplication3.Validators.Piloto
 
             RuleFor(id => _context.Pilotos.Find(id))
                 .NotNull().WithMessage("Id do piloto inválido.")
-                .Must(piloto => piloto?.Voos.Count() == 0).WithMessage("Não é possível excluir um piloto que já possui voos registrados.");
+                .Must(piloto => piloto?.Voos!.Count() == 0).WithMessage("Não é possível excluir um piloto que já possui voos registrados.");
         }
     }
 }

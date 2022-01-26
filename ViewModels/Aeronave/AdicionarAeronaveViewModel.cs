@@ -2,8 +2,8 @@
 {
     public class AdicionarAeronaveViewModel
     {
-        public string Fabricante { get; set; }
-        public string Modelo { get; set; }
-        public string Codigo { get; set; }
+        public string Fabricante { get; set; } = String.Empty;
+        public string Modelo { get; set; } = String.Empty;
+        public string Codigo { get; set; } = String.Empty;
     }
 }

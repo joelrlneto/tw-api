@@ -12,7 +12,7 @@ namespace WebApplication3.Validators.Voo
             _context = context;
 
             RuleFor(id => _context.Voos.Find(id))
-                .Must(voo => voo.DataHoraChegada >= DateTime.Now).WithMessage("Não é possível excluir um voo que já ocorreu.");
+                .Must(voo => voo?.DataHoraChegada >= DateTime.Now).WithMessage("Não é possível excluir um voo que já ocorreu.");
         }
     }
 }

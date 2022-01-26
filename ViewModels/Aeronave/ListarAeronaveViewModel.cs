@@ -3,7 +3,7 @@
     public class ListarAeronaveViewModel
     {
         public int Id { get; set; }
-        public string Modelo { get; set; }
-        public string Codigo { get; set; }
+        public string Modelo { get; set; } = String.Empty;
+        public string Codigo { get; set; } = String.Empty;
     }
 }

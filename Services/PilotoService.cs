@@ -41,24 +41,29 @@ namespace WebApplication3.Services
             };
         }
 
-        public DetalhesPilotoViewModel AtualizarPiloto(AtualizarPilotoViewModel dados)
+        public DetalhesPilotoViewModel? AtualizarPiloto(AtualizarPilotoViewModel dados)
         {
             _atualizarPilotoValidator.ValidateAndThrow(dados);
 
             var piloto = _context.Pilotos.Find(dados.Id);
 
-            piloto.Matricula = dados.Matricula;
-            piloto.Nome = dados.Nome;
-
-            _context.Update(piloto);
-            _context.SaveChanges();
-
-            return new DetalhesPilotoViewModel
+            if(piloto != null)
             {
-                Id = piloto.Id,
-                Nome = piloto.Nome,
-                Matricula = piloto.Matricula
-            };
+                piloto.Matricula = dados.Matricula;
+                piloto.Nome = dados.Nome;
+
+                _context.Update(piloto);
+                _context.SaveChanges();
+
+                return new DetalhesPilotoViewModel
+                {
+                    Id = piloto.Id,
+                    Nome = piloto.Nome,
+                    Matricula = piloto.Matricula
+                };
+            }
+            else
+                return null;
         }
 
         public void ExcluirPiloto(int id)
@@ -66,9 +71,12 @@ namespace WebApplication3.Services
             _excluirPilotoValidator.ValidateAndThrow(id);
 
             var piloto = _context.Pilotos.Find(id);
-
-            _context.Remove<Piloto>(piloto);
-            _context.SaveChanges();
+            
+            if(piloto != null)
+            {
+                _context.Remove<Piloto>(piloto);
+                _context.SaveChanges();
+            }
         }
 
         public IEnumerable<ListarPilotoViewModel> ListarPilotos()
@@ -80,7 +88,7 @@ namespace WebApplication3.Services
             });
         }
 
-        public DetalhesPilotoViewModel ListarPilotoPeloId(int id)
+        public DetalhesPilotoViewModel? ListarPilotoPeloId(int id)
         {
             var piloto = _context.Pilotos.Find(id);
 

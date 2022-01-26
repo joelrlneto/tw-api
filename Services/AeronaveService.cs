@@ -43,26 +43,31 @@ namespace WebApplication3.Services
             };
         }
 
-        public DetalhesAeronaveViewModel AtualizarAeronave(AtualizarAeronaveViewModel dados)
+        public DetalhesAeronaveViewModel? AtualizarAeronave(AtualizarAeronaveViewModel dados)
         {
             _atualizarAeronaveValidator.ValidateAndThrow(dados);
 
             var aeronave = _context.Aeronaves.Find(dados.Id);
 
-            aeronave.Fabricante = dados.Fabricante;
-            aeronave.Modelo = dados.Modelo;
-            aeronave.Codigo = dados.Codigo;
-
-            _context.Update(aeronave);
-            _context.SaveChanges();
-
-            return new DetalhesAeronaveViewModel
+            if(aeronave != null)
             {
-                Id = aeronave.Id,
-                Modelo = aeronave.Modelo,
-                Fabricante = aeronave.Fabricante,
-                Codigo = aeronave.Codigo
-            };
+                aeronave.Fabricante = dados.Fabricante;
+                aeronave.Modelo = dados.Modelo;
+                aeronave.Codigo = dados.Codigo;
+
+                _context.Update(aeronave);
+                _context.SaveChanges();
+
+                return new DetalhesAeronaveViewModel
+                {
+                    Id = aeronave.Id,
+                    Modelo = aeronave.Modelo,
+                    Fabricante = aeronave.Fabricante,
+                    Codigo = aeronave.Codigo
+                };
+            }
+            else
+                return null;
         }
 
         public void ExcluirAeronave(int id)
@@ -71,8 +76,11 @@ namespace WebApplication3.Services
 
             var aeronave = _context.Aeronaves.Find(id);
 
-            _context.Remove<Aeronave>(aeronave);
-            _context.SaveChanges();
+            if (aeronave != null)
+            {
+                _context.Remove<Aeronave>(aeronave);
+                _context.SaveChanges();
+            }
         }
 
         public IEnumerable<ListarAeronaveViewModel> ListarAeronaves()
@@ -85,7 +93,7 @@ namespace WebApplication3.Services
             });
         }
 
-        public DetalhesAeronaveViewModel ListarAeronavePeloId(int id)
+        public DetalhesAeronaveViewModel? ListarAeronavePeloId(int id)
         {
             var aeronave = _context.Aeronaves.Find(id);
 
@@ -99,7 +107,8 @@ namespace WebApplication3.Services
                     Modelo = aeronave.Modelo
                 };
             }
-            else return null;
+            else
+                return null;
         }
     }
 }

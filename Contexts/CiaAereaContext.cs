@@ -13,11 +13,13 @@ namespace WebApplication3.Contexts
             _configuration = configuration;
         }
 
+#nullable disable
         public DbSet<Aeronave> Aeronaves { get; set; }
         public DbSet<Piloto> Pilotos { get; set; }
         public DbSet<Voo> Voos { get; set; }
         public DbSet<Cancelamento> Cancelamentos { get; set; }
         public DbSet<Manutencao> Manutencoes { get; set; }
+#nullable restore
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

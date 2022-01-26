@@ -35,7 +35,7 @@ namespace WebApplication3.Validators.Voo
                     context.AddFailure("Piloto inválido.");
                 else
                 {
-                    var emVoo = piloto.Voos.Any(v => v.Id != voo.Id &&
+                    var emVoo = piloto.Voos!.Any(v => v.Id != voo.Id &&
                                                      (v.DataHoraPartida <= voo.DataHoraPartida && v.DataHoraChegada >= voo.DataHoraChegada) ||
                                                      (v.DataHoraPartida >= voo.DataHoraPartida && v.DataHoraPartida <= voo.DataHoraChegada) ||
                                                      (v.DataHoraChegada >= voo.DataHoraPartida && v.DataHoraChegada <= voo.DataHoraChegada));
@@ -54,12 +54,12 @@ namespace WebApplication3.Validators.Voo
                     context.AddFailure("Aeronave inválida.");
                 else
                 {
-                    var emManutencao = aeronave.Manutencoes.Any(m => m.DataHora >= voo.DataHoraPartida && m.DataHora <= voo.DataHoraChegada);
+                    var emManutencao = aeronave.Manutencoes!.Any(m => m.DataHora >= voo.DataHoraPartida && m.DataHora <= voo.DataHoraChegada);
 
                     if (emManutencao)
                         context.AddFailure("Esta aeronave estará em manutenção no horário selecionado.");
 
-                    var emVoo = aeronave.Voos.Any(v => v.Id == voo.Id &&
+                    var emVoo = aeronave.Voos!.Any(v => v.Id == voo.Id &&
                                                        (v.DataHoraPartida <= voo.DataHoraPartida && v.DataHoraChegada >= voo.DataHoraChegada) ||
                                                        (v.DataHoraPartida >= voo.DataHoraPartida && v.DataHoraPartida <= voo.DataHoraChegada) ||
                                                        (v.DataHoraChegada >= voo.DataHoraPartida && v.DataHoraChegada <= voo.DataHoraChegada));
