@@ -36,15 +36,15 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public IActionResult AdicionarPiloto(AdicionarPilotoViewModel dados)
         {
-            _pilotoService.AdicionarPiloto(dados);
-            return Ok();
+            var piloto = _pilotoService.AdicionarPiloto(dados);
+            return CreatedAtAction(nameof(ListarPilotoPeloId), new { Id = piloto.Id }, piloto);
         }
 
         [HttpPut("{id}")]
         public IActionResult AtualizarPiloto(int id, AtualizarPilotoViewModel dados)
         {
-            _pilotoService.AtualizarPiloto(dados);
-            return Ok();
+            var piloto = _pilotoService.AtualizarPiloto(dados);
+            return Ok(piloto);
         }
 
         [HttpDelete("{id}")]

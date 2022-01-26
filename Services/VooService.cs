@@ -33,7 +33,7 @@ namespace WebApplication3.Services
             _converter = converter;
         }
 
-        public void AdicionarVoo(AdicionarVooViewModel dados)
+        public DetalhesVooViewModel AdicionarVoo(AdicionarVooViewModel dados)
         {
             _adicionarVooValidator.ValidateAndThrow(dados);
 
@@ -49,9 +49,11 @@ namespace WebApplication3.Services
 
             _context.Add(voo);
             _context.SaveChanges();
+
+            return ListarVooPeloId(voo.Id);
         }
 
-        public void AtualizarVoo(AtualizarVooViewModel dados)
+        public DetalhesVooViewModel AtualizarVoo(AtualizarVooViewModel dados)
         {
             _atualizarVooValidator.ValidateAndThrow(dados);
 
@@ -66,6 +68,8 @@ namespace WebApplication3.Services
 
             _context.Update(voo);
             _context.SaveChanges();
+
+            return ListarVooPeloId(voo.Id);
         }
 
         public void ExcluirVoo(int id)

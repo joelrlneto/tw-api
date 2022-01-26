@@ -6,15 +6,22 @@ namespace WebApplication3.Contexts
 {
     public class CiaAereaContext: DbContext
     {
+        private readonly IConfiguration _configuration;
+
+        public CiaAereaContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public DbSet<Aeronave> Aeronaves { get; set; }
         public DbSet<Piloto> Pilotos { get; set; }
         public DbSet<Voo> Voos { get; set; }
         public DbSet<Cancelamento> Cancelamentos { get; set; }
         public DbSet<Manutencao> Manutencoes { get; set; }
 
-        public CiaAereaContext(DbContextOptions<CiaAereaContext> options)
-            : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CiaAerea"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

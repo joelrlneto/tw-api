@@ -37,15 +37,18 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public IActionResult AdicionarVoo(AdicionarVooViewModel dados)
         {
-            _vooService.AdicionarVoo(dados);
-            return Ok();
+            var voo = _vooService.AdicionarVoo(dados);
+            return CreatedAtAction(nameof(ListarVooPeloId), new { voo.Id }, voo);
         }
 
         [HttpPut("{id}")]
         public IActionResult AtualizarVoo(int id, AtualizarVooViewModel dados)
         {
-            _vooService.AtualizarVoo(dados);
-            return Ok();
+            if (id != dados.Id)
+                return BadRequest("O id informado na URL é diferente do id informado no corpo da requisição.");
+
+            var voo = _vooService.AtualizarVoo(dados);
+            return Ok(voo);
         }
 
         [HttpDelete("{id}")]

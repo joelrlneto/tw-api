@@ -35,15 +35,15 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public IActionResult AdicionarAeronave(AdicionarAeronaveViewModel dados)
         {
-            _aeronaveService.AdicionarAeronave(dados);
-            return Ok();
+            var aeronave = _aeronaveService.AdicionarAeronave(dados);
+            return CreatedAtAction(nameof(ListarAeronavePeloId), new { Id = aeronave.Id }, aeronave);
         }
         
         [HttpPut("{id}")]
         public IActionResult AtualizarAeronave(int id, AtualizarAeronaveViewModel dados)
         {
-            _aeronaveService.AtualizarAeronave(dados);
-            return Ok();
+            var aeronave = _aeronaveService.AtualizarAeronave(dados);
+            return Ok(aeronave);
         }
         
         [HttpDelete("{id}")]

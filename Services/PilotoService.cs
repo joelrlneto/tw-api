@@ -20,7 +20,7 @@ namespace WebApplication3.Services
             _excluirPilotoValidator = excluirPilotoValidator;
         }
 
-        public void AdicionarPiloto(AdicionarPilotoViewModel dados)
+        public DetalhesPilotoViewModel AdicionarPiloto(AdicionarPilotoViewModel dados)
         {
             _adicionarPilotoValidator.ValidateAndThrow(dados);
 
@@ -32,9 +32,16 @@ namespace WebApplication3.Services
 
             _context.Add(piloto);
             _context.SaveChanges();
+
+            return new DetalhesPilotoViewModel
+            {
+                Id = piloto.Id,
+                Nome = piloto.Nome,
+                Matricula = piloto.Matricula
+            };
         }
 
-        public void AtualizarPiloto(AtualizarPilotoViewModel dados)
+        public DetalhesPilotoViewModel AtualizarPiloto(AtualizarPilotoViewModel dados)
         {
             _atualizarPilotoValidator.ValidateAndThrow(dados);
 
@@ -45,6 +52,13 @@ namespace WebApplication3.Services
 
             _context.Update(piloto);
             _context.SaveChanges();
+
+            return new DetalhesPilotoViewModel
+            {
+                Id = piloto.Id,
+                Nome = piloto.Nome,
+                Matricula = piloto.Matricula
+            };
         }
 
         public void ExcluirPiloto(int id)

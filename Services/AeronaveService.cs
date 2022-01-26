@@ -20,7 +20,7 @@ namespace WebApplication3.Services
             _excluirAeronaveValidator = excluirAeronaveValidator;
         }
 
-        public void AdicionarAeronave(AdicionarAeronaveViewModel dados)
+        public DetalhesAeronaveViewModel AdicionarAeronave(AdicionarAeronaveViewModel dados)
         {
             _adicionarAeronaveValidator.ValidateAndThrow(dados);
 
@@ -33,9 +33,17 @@ namespace WebApplication3.Services
 
             _context.Add(aeronave);
             _context.SaveChanges();
+
+            return new DetalhesAeronaveViewModel
+            {
+                Id = aeronave.Id,
+                Modelo = aeronave.Modelo,
+                Fabricante = aeronave.Fabricante,
+                Codigo = aeronave.Codigo
+            };
         }
 
-        public void AtualizarAeronave(AtualizarAeronaveViewModel dados)
+        public DetalhesAeronaveViewModel AtualizarAeronave(AtualizarAeronaveViewModel dados)
         {
             _atualizarAeronaveValidator.ValidateAndThrow(dados);
 
@@ -47,6 +55,14 @@ namespace WebApplication3.Services
 
             _context.Update(aeronave);
             _context.SaveChanges();
+
+            return new DetalhesAeronaveViewModel
+            {
+                Id = aeronave.Id,
+                Modelo = aeronave.Modelo,
+                Fabricante = aeronave.Fabricante,
+                Codigo = aeronave.Codigo
+            };
         }
 
         public void ExcluirAeronave(int id)
