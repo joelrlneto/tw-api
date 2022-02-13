@@ -20,7 +20,7 @@ namespace WebApplication3.Services
             _excluirManutencaoValidator = excluirManutencaoValidator;
         }
 
-        public void AdicionarManutencao(AdicionarManutencaoViewModel dados)
+        public ListarManutencaoViewModel AdicionarManutencao(AdicionarManutencaoViewModel dados)
         {
             _adicionarManutencaoValidator.ValidateAndThrow(dados);
 
@@ -34,6 +34,15 @@ namespace WebApplication3.Services
 
             _context.Add(manutencao);
             _context.SaveChanges();
+
+            return new ListarManutencaoViewModel
+            {
+                AeronaveId = manutencao.AeronaveId,
+                DataHora = manutencao.DataHora,
+                Id = manutencao.Id,
+                Observacoes = manutencao.Observacoes,
+                Tipo = manutencao.Tipo
+            };
         }
 
         public void AtualizarManutencao(AtualizarManutencaoViewModel dados)

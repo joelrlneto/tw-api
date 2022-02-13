@@ -25,8 +25,8 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public IActionResult AdicionarManutencao(AdicionarManutencaoViewModel dados)
         {
-            _manutencaoService.AdicionarManutencao(dados);
-            return Ok();
+            var manutencao = _manutencaoService.AdicionarManutencao(dados);
+            return CreatedAtAction(nameof(ListarManutencoes), manutencao);
         }
 
         [HttpPut("{id}")]
