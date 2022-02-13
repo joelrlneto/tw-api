@@ -66,8 +66,8 @@ namespace WebApplication3.Services
                     Codigo = aeronave.Codigo
                 };
             }
-            else
-                return null;
+            
+            return null;
         }
 
         public void ExcluirAeronave(int id)
@@ -107,8 +107,8 @@ namespace WebApplication3.Services
                     Modelo = aeronave.Modelo
                 };
             }
-            else
-                return null;
+            
+            return null;
         }
     }
 }

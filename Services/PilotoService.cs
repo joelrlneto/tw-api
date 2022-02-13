@@ -62,8 +62,8 @@ namespace WebApplication3.Services
                     Matricula = piloto.Matricula
                 };
             }
-            else
-                return null;
+            
+            return null;
         }
 
         public void ExcluirPiloto(int id)
@@ -101,7 +101,8 @@ namespace WebApplication3.Services
                     Nome = piloto.Nome
                 };
             }
-            else return null;
+            
+            return null;
         }
     }
 }

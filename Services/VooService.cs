@@ -73,8 +73,8 @@ namespace WebApplication3.Services
 
                 return ListarVooPeloId(voo.Id);
             }
-            else
-                return null;
+            
+            return null;
         }
 
         public void ExcluirVoo(int id)
@@ -149,8 +149,8 @@ namespace WebApplication3.Services
                     } : null
                 };
             }
-            else
-                return null;
+            
+            return null;
         }
 
         public void CancelarVoo(CancelarVooViewModel dados)
@@ -209,8 +209,8 @@ namespace WebApplication3.Services
                 };
                 return _converter.Convert(doc);
             }
-            else
-                return null;
+            
+            return null;
         }
     }
 }

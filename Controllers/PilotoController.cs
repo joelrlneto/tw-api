@@ -29,8 +29,8 @@ namespace WebApplication3.Controllers
 
             if (piloto != null)
                 return Ok(piloto);
-            else
-                return NotFound();
+            
+            return NotFound();
         }
 
         [HttpPost]
@@ -43,6 +43,9 @@ namespace WebApplication3.Controllers
         [HttpPut("{id}")]
         public IActionResult AtualizarPiloto(int id, AtualizarPilotoViewModel dados)
         {
+            if (id != dados.Id)
+                return BadRequest("O id informado na URL é diferente do id informado no corpo da requisição.");
+
             var piloto = _pilotoService.AtualizarPiloto(dados);
             return Ok(piloto);
         }

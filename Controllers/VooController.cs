@@ -30,8 +30,8 @@ namespace WebApplication3.Controllers
 
             if (voo != null)
                 return Ok(voo);
-            else
-                return NotFound();
+            
+            return NotFound();
         }
 
         [HttpPost]
@@ -70,11 +70,9 @@ namespace WebApplication3.Controllers
         {
             var conteudo = _vooService.ImprimirFichaDoVoo(id);
             if(conteudo?.Length > 0)
-            {
                 return File(conteudo, "application/pdf");
-            }
-            else
-                return NoContent();
+
+            return NoContent();
         }
     }
 }

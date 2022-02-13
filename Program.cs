@@ -2,6 +2,7 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.EntityFrameworkCore;
 using WebApplication3.Contexts;
+using WebApplication3.Middlewares;
 using WebApplication3.Services;
 using WebApplication3.Validators.Aeronave;
 using WebApplication3.Validators.Cancelamento;
@@ -51,5 +52,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.Run();

@@ -32,6 +32,9 @@ namespace WebApplication3.Controllers
         [HttpPut("{id}")]
         public IActionResult AtualizarManutencao(int id, AtualizarManutencaoViewModel dados)
         {
+            if (id != dados.Id)
+                return BadRequest("O id informado na URL é diferente do id informado no corpo da requisição.");
+
             _manutencaoService.AtualizarManutencao(dados);
             return Ok();
         }
