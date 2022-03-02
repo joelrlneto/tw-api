@@ -47,32 +47,60 @@ namespace WebApplication3.Controllers
             if (id != dados.Id)
                 return BadRequest("O id informado na URL é diferente do id informado no corpo da requisição.");
 
-            var voo = _vooService.AtualizarVoo(dados);
-            return Ok(voo);
+            var voo = _vooService.ListarVooPeloId(id);
+
+            if (voo != null)
+            {
+                return Ok(_vooService.AtualizarVoo(dados));
+            }
+
+            return NotFound();
         }
 
         [HttpDelete("{id}")]
         public IActionResult ExcluirVoo(int id)
         {
-            _vooService.ExcluirVoo(id);
-            return NoContent();
+            var voo = _vooService.ListarVooPeloId(id);
+
+            if (voo != null)
+            {
+                _vooService.ExcluirVoo(id);
+                return NoContent();
+            }
+
+            return NotFound();
         }
 
         [HttpPost("cancelar")]
         public IActionResult CancelarVoo(CancelarVooViewModel dados)
         {
-            _vooService.CancelarVoo(dados);
-            return Ok();
+            var voo = _vooService.ListarVooPeloId(dados.VooId);
+
+            if (voo != null)
+            {
+                _vooService.CancelarVoo(dados);
+                return NoContent();
+            }
+
+            return NotFound();
         }
 
         [HttpGet("{id}/ficha")]
         public IActionResult ImprimirFichaDoVoo(int id)
         {
-            var conteudo = _vooService.ImprimirFichaDoVoo(id);
-            if(conteudo?.Length > 0)
-                return File(conteudo, "application/pdf");
+            var voo = _vooService.ListarVooPeloId(id);
 
-            return NoContent();
+            if (voo != null)
+            {
+                var conteudo = _vooService.ImprimirFichaDoVoo(id);
+                
+                if(conteudo?.Length > 0)
+                    return File(conteudo, "application/pdf");
+
+                return NoContent();
+            }
+
+            return NotFound();
         }
     }
 }
